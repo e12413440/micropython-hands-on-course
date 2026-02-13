@@ -2,13 +2,8 @@
 <ImagimobStudio version="0.9">
   <Timeline id="58304eab-83e9-407f-857b-2a36b28df88b">
     <Tracks>
-      <Track name="Live Labeling" type="labelcsv">
-        <PayloadFile>Live-Labeling.label</PayloadFile>
-        <Shape />
-      </Track>
-      <Track name="IMU Data" type="datacsv" timecoded="TimestampBegin" isLabelTrack="False" frequency="400">
+      <Track name="IMU Data" type="datacsv" isLabelTrack="False">
         <PayloadFile>IMU-Data.data</PayloadFile>
-        <Offset unit="seconds">1.2499000000E-003</Offset>
         <Shape>
           <Axis name="Axis" size="3">
             <Label index="0">X</Label>
@@ -20,6 +15,10 @@
             <Label index="1">Gyro</Label>
           </Axis>
         </Shape>
+      </Track>
+      <Track name="Live Labeling" type="labelcsv">
+        <PayloadFile>Live-Labeling.label</PayloadFile>
+        <Shape />
       </Track>
     </Tracks>
   </Timeline>

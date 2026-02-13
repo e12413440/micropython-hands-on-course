@@ -2,39 +2,41 @@
 <Imaginet version="2.0.0.0">
   <Compound unit="d419d86b-7b57-41d3-9a74-ab428f13a213">
     <Nodes>
+      <UnitNode id="node_38" x="2802.9760590496503" y="423.1623660296701" enabled="true" profiling="false" unit="Imaginet.Units.Math.Scale">
+        <DoubleArgument param="scale">0.01</DoubleArgument>
+      </UnitNode>
+      <UnitNode id="node_40" x="3382.1794072201615" y="426.62610113425967" enabled="true" profiling="false" unit="Imaginet.Units.Math.Scale">
+        <DoubleArgument param="scale">100</DoubleArgument>
+      </UnitNode>
+      <UnitNode id="node_16" x="1932.4530720542941" y="573.1853000978984" enabled="true" profiling="false" unit="Imaginet.Units.Math.Pow">
+        <DoubleArgument param="exponent">2</DoubleArgument>
+      </UnitNode>
+      <UnitNode id="node_4" x="1365.3782145088296" y="376.25847992190705" enabled="true" profiling="false" unit="Imaginet.Units.Filter.HighPassFilter">
+        <DoubleArgument param="cutoff_freq">1</DoubleArgument>
+      </UnitNode>
+      <UnitNode id="node_17" x="2213.9315357338237" y="380.7385342743058" enabled="true" profiling="false" unit="Imaginet.Units.Math.Add" />
+      <DeviceNode id="node_41" x="296" y="260" enabled="true" profiling="false" name="IMU" board="290de5cb-460b-41bf-1f19-8d0e2336aff7" boardName="PSOC 6 AI (CY8CKIT-06S2-AI)" device="2">
+        <Int32Argument param="mode_4">0</Int32Argument>
+        <Int32Argument param="frequency_1">3</Int32Argument>
+      </DeviceNode>
+      <UnitNode id="node_19" x="2539.0144707221953" y="419.0583373366646" enabled="true" profiling="false" unit="Imaginet.Units.Math.Pow">
+        <DoubleArgument param="exponent">0.5</DoubleArgument>
+      </UnitNode>
+      <UnitNode id="node_14" x="1922.769094527173" y="218.09701438152894" enabled="true" profiling="false" unit="Imaginet.Units.Math.Pow">
+        <DoubleArgument param="exponent">2</DoubleArgument>
+      </UnitNode>
+      <UnitNode id="node_7" x="740.3248117613397" y="244.70199764068025" enabled="true" profiling="false" unit="Imaginet.Units.Math.Reshape">
+        <ShapeArgument param="shape">[6]</ShapeArgument>
+      </UnitNode>
+      <UnitNode id="node_13" x="1696.515573398489" y="555.226496918709" enabled="true" profiling="false" unit="Imaginet.Units.Math.Select">
+        <Int32Argument param="count">1</Int32Argument>
+        <Int32Argument param="index">2</Int32Argument>
+      </UnitNode>
       <UnitNode id="node_12" x="1696.1028738957111" y="376.3653493970511" enabled="true" profiling="false" unit="Imaginet.Units.Math.Select">
         <Int32Argument param="count">1</Int32Argument>
         <Int32Argument param="index">1</Int32Argument>
       </UnitNode>
-      <UnitNode id="node_38" x="2802.9760590496503" y="423.1623660296701" enabled="true" profiling="false" unit="Imaginet.Units.Math.Scale">
-        <DoubleArgument param="scale">0.01</DoubleArgument>
-      </UnitNode>
-      <LabelListNode id="node_2" width="120" height="120" x="579" y="22" enabled="true" profiling="false" name="Predefined Labels">
-        <Label>Jab_R</Label>
-        <Label>Uppercut_R</Label>
-        <Label>Sidehook_R</Label>
-        <Label>Block_R</Label>
-      </LabelListNode>
-      <UnitNode id="node_4" x="1365.3782145088296" y="376.25847992190705" enabled="true" profiling="false" unit="Imaginet.Units.Filter.HighPassFilter">
-        <DoubleArgument param="cutoff_freq">1</DoubleArgument>
-      </UnitNode>
-      <UnitNode id="node_1" x="823.8305594280137" y="529.9076129875394" enabled="true" profiling="false" name="IMU Data" unit="ImagimobStudio.Modules.DataTrack" />
-      <UnitNode id="node_17" x="2213.9315357338237" y="380.7385342743058" enabled="true" profiling="false" unit="Imaginet.Units.Math.Add" />
-      <UnitNode id="node_16" x="1932.4530720542941" y="573.1853000978984" enabled="true" profiling="false" unit="Imaginet.Units.Math.Pow">
-        <DoubleArgument param="exponent">2</DoubleArgument>
-      </UnitNode>
-      <UnitNode id="node_19" x="2539.0144707221953" y="419.0583373366646" enabled="true" profiling="false" unit="Imaginet.Units.Math.Pow">
-        <DoubleArgument param="exponent">0.5</DoubleArgument>
-      </UnitNode>
-      <UnitNode id="node_18" x="2278.8592952977797" y="536.6621430433461" enabled="true" profiling="false" unit="Imaginet.Units.Math.Add" />
-      <UnitNode id="node_7" x="740.3248117613397" y="244.70199764068025" enabled="true" profiling="false" unit="Imaginet.Units.Math.Reshape">
-        <ShapeArgument param="shape">[6]</ShapeArgument>
-      </UnitNode>
       <UnitNode id="node_39" x="3645.5787929556896" y="423.6310938471059" enabled="true" profiling="false" name="Threshold Data" unit="ImagimobStudio.Modules.DataTrack" />
-      <UnitNode id="node_8" x="1092.0847047721334" y="377.4770084527142" enabled="true" profiling="false" unit="Imaginet.Units.Math.Select">
-        <Int32Argument param="count">3</Int32Argument>
-        <Int32Argument param="index">0</Int32Argument>
-      </UnitNode>
       <UnitNode id="node_11" x="1687.8529410023762" y="204.14800024868634" enabled="true" profiling="false" unit="Imaginet.Units.Math.Select">
         <Int32Argument param="count">1</Int32Argument>
         <Int32Argument param="index">0</Int32Argument>
@@ -42,23 +44,21 @@
       <UnitNode id="node_36" x="3091.524671580564" y="417.8630873991038" enabled="true" profiling="false" unit="Imaginet.Units.Filter.Threshold">
         <DoubleArgument param="threshold">0.15</DoubleArgument>
       </UnitNode>
-      <UnitNode id="node_40" x="3382.1794072201615" y="426.62610113425967" enabled="true" profiling="false" unit="Imaginet.Units.Math.Scale">
-        <DoubleArgument param="scale">100</DoubleArgument>
+      <UnitNode id="node_8" x="1092.0847047721334" y="377.4770084527142" enabled="true" profiling="false" unit="Imaginet.Units.Math.Select">
+        <Int32Argument param="count">3</Int32Argument>
+        <Int32Argument param="index">0</Int32Argument>
       </UnitNode>
+      <UnitNode id="node_1" x="823.8305594280137" y="529.9076129875394" enabled="true" profiling="false" name="IMU Data" unit="ImagimobStudio.Modules.DataTrack" />
+      <LabelListNode id="node_2" width="120" height="120" x="579" y="22" enabled="true" profiling="false" name="Predefined Labels">
+        <Label>Jab_R</Label>
+        <Label>Uppercut_R</Label>
+        <Label>Sidehook_R</Label>
+        <Label>Block_R</Label>
+      </LabelListNode>
       <UnitNode id="node_15" x="1929.5932142429535" y="395.52412699183094" enabled="true" profiling="false" unit="Imaginet.Units.Math.Pow">
         <DoubleArgument param="exponent">2</DoubleArgument>
       </UnitNode>
-      <UnitNode id="node_13" x="1696.515573398489" y="555.226496918709" enabled="true" profiling="false" unit="Imaginet.Units.Math.Select">
-        <Int32Argument param="count">1</Int32Argument>
-        <Int32Argument param="index">2</Int32Argument>
-      </UnitNode>
-      <UnitNode id="node_14" x="1922.769094527173" y="218.09701438152894" enabled="true" profiling="false" unit="Imaginet.Units.Math.Pow">
-        <DoubleArgument param="exponent">2</DoubleArgument>
-      </UnitNode>
-      <DeviceNode id="node_26" x="310.25532719257507" y="251.8511566931047" enabled="true" profiling="false" name="IMU" board="290de5cb-460b-41bf-1f19-8d0e2534eff7" boardName="PSOC 6 AI (CY8CKIT-06S2-AI)" device="2">
-        <Int32Argument param="accel range_2">2</Int32Argument>
-        <Int32Argument param="frequency_1">3</Int32Argument>
-      </DeviceNode>
+      <UnitNode id="node_18" x="2278.8592952977797" y="536.6621430433461" enabled="true" profiling="false" unit="Imaginet.Units.Math.Add" />
     </Nodes>
     <Connections>
       <Connection>
@@ -114,14 +114,6 @@
         <Target node="node_19" param="input" />
       </Connection>
       <Connection>
-        <Source node="node_26" param="Combined" />
-        <Target node="node_7" param="input" />
-      </Connection>
-      <Connection>
-        <Source node="node_26" param="Combined" />
-        <Target node="node_1" param="data" />
-      </Connection>
-      <Connection>
         <Source node="node_19" param="output" />
         <Target node="node_38" param="input" />
       </Connection>
@@ -136,6 +128,10 @@
       <Connection>
         <Source node="node_40" param="output" />
         <Target node="node_39" param="data" />
+      </Connection>
+      <Connection>
+        <Source node="node_41" param="Combined" />
+        <Target node="node_1" param="data" />
       </Connection>
     </Connections>
   </Compound>
