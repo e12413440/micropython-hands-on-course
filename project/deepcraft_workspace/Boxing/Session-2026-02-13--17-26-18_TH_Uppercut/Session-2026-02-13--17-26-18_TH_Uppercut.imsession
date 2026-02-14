@@ -18,12 +18,11 @@
       </Track>
       <Track name="Live Labeling" type="labelcsv">
         <PayloadFile>Live-Labeling.label</PayloadFile>
-        <Shape />
-      </Track>
-      <Track name="conv1d-medium-balanced-30" type="datacsv" timecoded="TimestampBeginDuration" isLabelTrack="False">
-        <PayloadFile>..\..\Classification\Models\conv1d-medium-balanced-3\Predictions\sessions\Session-2026-02-13--17-26-18_TH_Uppercut\conv1d-medium-balanced-30.data</PayloadFile>
-        <Offset unit="seconds">9.9749940000E-001</Offset>
-        <Shape />
+        <Shape>
+          <Axis name="Labels" size="1">
+            <Label index="0">Uppercut_R</Label>
+          </Axis>
+        </Shape>
       </Track>
     </Tracks>
   </Timeline>

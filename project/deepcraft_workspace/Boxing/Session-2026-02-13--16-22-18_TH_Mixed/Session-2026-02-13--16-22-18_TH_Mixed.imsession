@@ -20,11 +20,6 @@
         <PayloadFile>Live-Labeling.label</PayloadFile>
         <Shape />
       </Track>
-      <Track name="conv1d-medium-balanced-30" type="datacsv" timecoded="TimestampBeginDuration" isLabelTrack="False">
-        <PayloadFile>..\..\Classification\Models\conv1d-medium-balanced-3\Predictions\sessions\Session-2026-02-13--16-22-18_TH_Mixed\conv1d-medium-balanced-30.data</PayloadFile>
-        <Offset unit="seconds">9.9750010000E-001</Offset>
-        <Shape />
-      </Track>
     </Tracks>
   </Timeline>
 </ImagimobStudio>
