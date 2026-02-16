@@ -18,6 +18,16 @@
       </Track>
       <Track name="Live Labeling" type="labelcsv">
         <PayloadFile>Live-Labeling.label</PayloadFile>
+        <Shape>
+          <Axis name="Labels" size="3">
+            <Label index="0">Sidehook_R</Label>
+            <Label index="1">Uppercut_R</Label>
+            <Label index="2">Jab_R</Label>
+          </Axis>
+        </Shape>
+      </Track>
+      <Track name="Preprocessor" type="datacsv" isLabelTrack="False">
+        <PayloadFile>../../Classification_TR/Classification_TR_only_few/PreprocessorTrack/Session-2026-02-12--12-55-16_TR_MIX2/IMU-Data_Preprocessor.data</PayloadFile>
         <Shape />
       </Track>
     </Tracks>

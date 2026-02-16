@@ -1,0 +1,9 @@
+..\..\..\..\Boxing\Session-2026-02-12--11-52-26_TR_JAB\IMU-Data.data; ..\Session-2026-02-12--11-52-26_TR_JAB\IMU-Data_Preprocessor.data
+..\..\..\..\Boxing\Session-2026-02-12--12-06-12_TR_HOOK\IMU-Data.data; ..\Session-2026-02-12--12-06-12_TR_HOOK\IMU-Data_Preprocessor.data
+..\..\..\..\Boxing\Session-2026-02-12--12-18-36_TR_UPPERCUT\IMU-Data.data; ..\Session-2026-02-12--12-18-36_TR_UPPERCUT\IMU-Data_Preprocessor.data
+..\..\..\..\Boxing\Session-2026-02-13--16-32-12_negative_Data2\IMU-Data.data; ..\Session-2026-02-13--16-32-12_negative_Data2\IMU-Data_Preprocessor.data
+..\..\..\..\Boxing\Session-2026-02-13--18-39-06_UnlabeledData\IMU-Data.data; ..\Session-2026-02-13--18-39-06_UnlabeledData\IMU-Data_Preprocessor.data
+..\..\..\..\Boxing\Session-2026-02-12--12-55-16_TR_MIX2\IMU-Data.data; ..\Session-2026-02-12--12-55-16_TR_MIX2\IMU-Data_Preprocessor.data
+..\..\..\..\Boxing\Session-2026-02-12--12-28-07_TR_MIX1\IMU-Data.data; ..\Session-2026-02-12--12-28-07_TR_MIX1\IMU-Data_Preprocessor.data
+..\..\..\..\Boxing\Session-2026-02-13--16-27-59_negativeData\IMU-Data.data; ..\Session-2026-02-13--16-27-59_negativeData\IMU-Data_Preprocessor.data
+..\..\..\..\Boxing\Session-2026-02-16--18-07-15_TR_UPPERCUT2\IMU-Data.data; ..\Session-2026-02-16--18-07-15_TR_UPPERCUT2\IMU-Data_Preprocessor.data

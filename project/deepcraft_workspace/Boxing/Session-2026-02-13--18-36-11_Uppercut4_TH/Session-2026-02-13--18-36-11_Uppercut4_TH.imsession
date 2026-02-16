@@ -18,6 +18,14 @@
       </Track>
       <Track name="Live Labeling" type="labelcsv">
         <PayloadFile>Live-Labeling.label</PayloadFile>
+        <Shape>
+          <Axis name="Labels" size="1">
+            <Label index="0">Uppercut_R</Label>
+          </Axis>
+        </Shape>
+      </Track>
+      <Track name="Preprocessor" type="datacsv" timecoded="TimestampBeginDuration" isLabelTrack="False">
+        <PayloadFile>..\..\Classification_TR\Classification_TR_woTC2\PreprocessorTrack\Session-2026-02-13--18-36-11_Uppercut4_TH\IMU-Data_Preprocessor.data</PayloadFile>
         <Shape />
       </Track>
     </Tracks>

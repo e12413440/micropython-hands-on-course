@@ -20,6 +20,10 @@
         <PayloadFile>Live-Labeling.label</PayloadFile>
         <Shape />
       </Track>
+      <Track name="Preprocessor" type="datacsv" timecoded="TimestampBeginDuration" isLabelTrack="False">
+        <PayloadFile>..\..\Classification_TR\Classification_TR_woTC2\PreprocessorTrack\Session-2026-02-13--16-22-18_TH_Mixed\IMU-Data_Preprocessor.data</PayloadFile>
+        <Shape />
+      </Track>
     </Tracks>
   </Timeline>
 </ImagimobStudio>

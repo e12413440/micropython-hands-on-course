@@ -24,6 +24,10 @@
           </Axis>
         </Shape>
       </Track>
+      <Track name="Preprocessor" type="datacsv" timecoded="TimestampBeginDuration" isLabelTrack="False">
+        <PayloadFile>..\..\Classification_TR\Classification_TR_woTC2\PreprocessorTrack\Session-2026-02-12--11-08-42_TH_Uppercut\IMU-Data_Preprocessor.data</PayloadFile>
+        <Shape />
+      </Track>
     </Tracks>
   </Timeline>
 </ImagimobStudio>

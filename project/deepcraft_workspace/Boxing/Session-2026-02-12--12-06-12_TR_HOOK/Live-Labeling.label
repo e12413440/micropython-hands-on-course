@@ -26,7 +26,6 @@ Time(Seconds),Length(Seconds),Label(string),Confidence(double),Comment(string)
 58.6460252,1.4230923,Sidehook_R,1,
 60.6520348,1.3713835,Sidehook_R,1,
 62.7616076,1.3204026999999998,Sidehook_R,1,
-64.6349116,0.2039232,Sidehook_R,1,
 64.6349116,1.340795,Sidehook_R,1,
 66.719648,1.5447182,Sidehook_R,1,
 68.8852998,1.5396201,Sidehook_R,1,
