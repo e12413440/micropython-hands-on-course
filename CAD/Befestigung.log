@@ -1,0 +1,30 @@
+Solid Edge in STL konvertieren
+Datum: Dienstag,Februar 17,2026 03:07PM
+Quelldatei:C:\Users\theoc\Documents\TU_Wien\Semester_3\Edge_AI\micropython-hands-on-course\CAD\Befestigung.par
+Ausgangssystem: SOLID EDGE
+
+Hardware:
+Prozessor: 12th Gen Intel(R) Core(TM) i7-1260P
+Betriebssystem: Windows 10
+Installierter Speicher: 15,71 GB
+
+Software-Informationen:
+Parasolid-Version: 35.0.239
+PSBodyshop-Version: 35.0.102
+Solid Edge-Version: 223.00.08.004 x64
+
+STL-Exportoptionen:
+Ausgabedateiformat:BINARY
+Angezeigte Teile exportieren: Aus
+Strukturoption: Monolithic
+Einheiten exportieren:Millimeter
+Toleranzwert exportieren:0,001000
+Toleranztyp exportieren:Fine
+Flächenplanwinkelwert exportieren:0,523599
+
+Konvertierungsfortschritt:
+Phase 1 von 2 - Abrufen der Parasolid-Informationen...
+Phase 2 von 2 - Konvertieren von Parasolid in fremde Datentypen...
+Anzahl erstellter STL-Dateien : 1
+Konvertierungsvorgang ist abgeschlossen
+Zum Konvertieren benötigte Zeit:00 : 00 : 01
