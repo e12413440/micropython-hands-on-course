@@ -18,7 +18,12 @@
       </Track>
       <Track name="Live Labeling" type="labelcsv">
         <PayloadFile>Live-Labeling.label</PayloadFile>
-        <Shape />
+        <Shape>
+          <Axis name="Labels" size="2">
+            <Label index="0">Sidehook_R</Label>
+            <Label index="1">Uppercut_R</Label>
+          </Axis>
+        </Shape>
       </Track>
       <Track name="Preprocessor" type="datacsv" timecoded="TimestampBeginDuration" isLabelTrack="False">
         <PayloadFile>..\..\Classification_TR\Classification_TR_woTC2\PreprocessorTrack\Session-2026-02-13--18-27-51_TH_Uppercut_Hook\IMU-Data_Preprocessor.data</PayloadFile>

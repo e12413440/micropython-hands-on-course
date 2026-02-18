@@ -1,180 +1,156 @@
-import time								# module to implement delays
-import network							# module for networking tasks
-import ujson							# module to generate JSON string
-from machine import Pin, I2C			# machine module for I2C and Pins
-from umqtt.robust import MQTTClient		
-from micropython_bmi270 import bmi270	# driver for BMI270 IMU sensor
-
-
-
+iimport time									# module to implement delays
+import network								# module for networking tasks
+import ujson                                # Module to generate and parse JSON strings
+from machine import Pin, I2C                # Machine module for GPIO and I2C hardware control
+from umqtt.robust import MQTTClient         # Robust MQTT client for reliable IoT communication
+from micropython_bmi270 import bmi270       # Driver for the BMI270 IMU sensor
+ 
+ 
+ 
 # --------------------------------------- Configuration -------------------------------------
-
+ 
 # WIFI setup
-
-SSID = "USER_SSID"
-PASSWORD = "USER_PASSWORD"
-
+SSID = "Magenta4675299"                                   # WiFi network name
+PASSWORD = "e3gp9e76p22j"                    # WiFi password
+ 
 # MQTT setup
-
-UBIDOTS_SERVER = "industrial.api.ubidots.com"				# defining ubidots IoT server
-UBIDOTS_PORT = 1883											# defining ubidots IoT server
-UBIDOTS_TOKEN = "USER_TOKEN"								# defining the ubidots token
-MQTT_CLIENT_ID = "boxtrainer"								# defining MQTT client name
-TOPIC_PUBLISH = b"/v1.6/devices/psoc6-boxer"				# defining topic path for publishing
-TOPIC_SUBSCRIBE = b"/v1.6/devices/psoc6-boxer/session"		# defining topic path for subscribing session values
-
-PUBLISH_INTERVAL = 0.5		# defining interval between each publish
-IMU_INTERVAL = 0.02			# defining interval between each time new data is read of the IMU
-current_session_id = 0		# defining global variable 
-
-
-
+UBIDOTS_SERVER = "industrial.api.ubidots.com"               # Ubidots IoT server address
+UBIDOTS_PORT = 1883                                         # Standard MQTT port
+UBIDOTS_TOKEN = "BBUS-oCJ5n25UsXMlFIJjfcyEeQyefjg0Oi"       # Your unique Ubidots authentication token
+MQTT_CLIENT_ID = "boxtrainer"                               # Unique name for this MQTT client
+TOPIC_PUBLISH = b"/v1.6/devices/psoc6-boxer"                # Topic path for sending punch data
+TOPIC_SUBSCRIBE = b"/v1.6/devices/psoc6-boxer/session"      # Topic path for receiving session updates
+ 
+# Timing constants
+PUBLISH_INTERVAL = 1.5                      # Delay between data transmissions (seconds)
+IMU_INTERVAL = 0.02                         # Delay between sensor readings ($50Hz$ sampling)
+ 
+# Global tracking variables
+current_session_id = 0                      # Stores the ID of the current training session
+punch_buffer = []                           # List to store punches detected between publishes
+ 
 # --------------------------------------- MQTT Callback -------------------------------------
-
-# function for recieving data sent from MQTT server to the PSOC6 controller 
-def sub_callback(topic, msg):
-    
-    global current_session_id	# defining global variable for getting new Session ID´s
-    
+ 
+def sub_callback(topic, msg):               # Function triggered when a message arrives from Ubidots
+    global current_session_id               # Access the global session ID variable
     try:
-        current_session_id = float(msg)						# read the new session ID out of the message transmitted from Ubidots
-                                                            # chacking the format of the message (has to be a float otherwhise exception)
-        print("A new training session has been started! The ID is: ", current_session_id)
-        
-    except Exception as e:									# error handler for all possible exceptions
-        print("Error while starting new session", e)
-
-
-
-# --------------------------------------- Setup Funktionen ----------------------------------
-
-# function for WiFi connection
-def WiFi_connection():
-    
-    wlan = network.WLAN(network.STA_IF)						# creating wlan object
-    wlan.active(True)										# activate wlan object
-    if not wlan.isconnected():								# check if WiFi is not connected
-        
+        # Decode bytes to UTF-8 string and parse the JSON structure
+        data = ujson.loads(msg.decode('utf-8'))
+        # Get value of data in the "value" key
+        if "value" in data:
+            current_session_id = float(data["value"])       # Update the session ID
+            print(f"Session updated! New ID: {current_session_id}")
+        else:
+            print("Message received, but 'value' key is missing.")
+ 
+    except Exception as e:                  # Handle parsing errors
+        print("Error parsing incoming message:", e)
+ 
+# --------------------------------------- Setup Functions -----------------------------------
+ 
+def WiFi_connection():                      # Function to establish a wireless connection
+    wlan = network.WLAN(network.STA_IF)     # Create a station interface object
+    wlan.active(True)                       # Activate the WiFi hardware
+    if not wlan.isconnected():              # Check if connection is already established
         print("Connecting to WiFi...")
-        wlan.connect(SSID, PASSWORD)						# execute function tying to connect to WiFi
-        timeout = 10										# defining timeout of 10 seconds (time to connect)
-        
-        while not wlan.isconnected() and timeout > 0:		# countdown of timeout while WiFi is not connected
-            time.sleep(1)									# delay of 1 second
-            timeout -= 1									# decrement timout
-            
-    if wlan.isconnected():									# check if WiFi is connected
-        
-        print("WiFi connected with IP:", wlan.ifconfig()[0])
-        return True											# return true if connection was successful
-    
-    else:													# else WiFi connection failed
-        
-        print("WiFi connection failed")
-        return False										
-
-
-def setup_mqtt():
-    
-    # create object of MQTTClient class called client
-    # keepalive sending ping every 60 seconds -> Server notices if connection is lost due to low battery etc.
-    client = MQTTClient(client_id=MQTT_CLIENT_ID, server=UBIDOTS_SERVER, port=UBIDOTS_PORT, ser=UBIDOTS_TOKEN, password=UBIDOTS_TOKEN, keepalive=60)
-    
-    # aadding sub_callback function to be executed if client gets a message from server
-    client.set_callback(sub_callback)
-    
+        wlan.connect(SSID, PASSWORD)        # Attempt to connect to the AP
+        timeout = 10                        # Set connection timeout to 10 seconds
+        while not wlan.isconnected() and timeout > 0:       # Wait until connected or timeout
+            time.sleep(1)                                   # Wait for 1 second
+            timeout -= 1                                    # Decrement timer
+    if wlan.isconnected():                  # Check if connection is successful
+        print("WiFi connected! IP:", wlan.ifconfig()[0])
+        return True                         # Return success
+    else:
+        print("WiFi connection failed.")
+        return False                        # Return failure
+ 
+def setup_mqtt():                           # Function to initialize the MQTT client
+    # Create client with 60s keepalive to detect connection drops
+    client = MQTTClient(MQTT_CLIENT_ID, UBIDOTS_SERVER, UBIDOTS_PORT, user=UBIDOTS_TOKEN, password=UBIDOTS_TOKEN, keepalive=60)
+    client.set_callback(sub_callback)       # Link the callback function for subscriptions
     try:
-        
-        client.connect()							# building TCP connection between server and controller
-        client.subscribe(TOPIC_SUBSCRIBE)			# receiving data from the server in the channel/topic (TOPIC_SUBSCRIBE)
-        print("Connection to Ubidots and Subscritpion successful")
-        return client                               # return object client if successful
-    
-    except Exception as e:                          # handle all errors due to exceptions
-        print("MQTT Connection failed:", e)
-        return None
-
+        client.connect()                    # Establish connection to the broker
+        client.subscribe(TOPIC_SUBSCRIBE)   # Listen for session ID changes from Ubidots
+        print("Connected to Ubidots and subscribed to session topic.")
+        return client                       # Return the initialized client
+    except Exception as e:
+        print("MQTT Setup failed:", e)
+        return None                         # Return None if connection fails
+ 
 # --------------------------------------- IMU & Model ---------------------------------------
-
-# Initialize IMU-BMI270 and i2c bus
-
+ 
 try:
-    i2c = I2C(0, scl=Pin('P0_2'), sda=Pin('P0_3')) # declare i2c pins
-    bmi = bmi270.BMI270(i2c)					   # init BMI270 with i2c and define object
-    
-except Exception as e:							   # handle exceptions that might occur
-    print("hardware setup error:", e)
-
-
-
-# define function that gives the most probable punch type with the model generated in deepcraft
-
-def get_punch_data():
-    
-    # Getting acceleration and angular velocity out of IMU
-    # Needed as Input for the model function
-    acc = bmi.acceleration
-    gyro = bmi.gyro
-    
-    probs = [0.7, 0.2, 0.1]						# placeholder for the generated function of the trained model
-    punch_types = ["Jab", "Hook", "Uppercut"]	# creating array with all different punch types
-    
-    prob_max = max(probs)						# determine the maximum probabiltity of model output
-    prob_max_idx = probs.index(prob_max)		# determine the index of highest probability
-    
-    if (prob_max >= 0.5):						# defining a threshold of a 50% that has to be exceeded
-        return prob_max_idx, punch_types[prob_max_idx], probs
-    
-    else:										# probs not high enough to make a clear decision
-        return None, None, probs
-    
+    # Initialize I2C bus on P0_2 (SCL) and P0_3 (SDA)
+    i2c = I2C(0, scl=Pin('P0_2'), sda=Pin('P0_3')) 
+    bmi = bmi270.BMI270(i2c)                # Initialize the BMI270 sensor object
+except Exception as e:
+    print("Hardware initialization error:", e)
+ 
+ 
+# function to get punch data with the model implemented in deepcraft
+ 
+def get_punch_data():                       # Function to analyze sensor data
+    acc = bmi.acceleration                  # Read acceleration data (x, y, z)
+    gyro = bmi.gyro                         # Read angular velocity data
+    # Placeholder logic: Replace this with your actual DeepCraft model inference
+    probs = [0.8, 0.1, 0.1]                 # Simulated probabilities: [Jab, Hook, Uppercut]
+    punch_types = ["Jab", "Hook", "Uppercut"]
+    prob_max = max(probs)                   # Find the highest confidence score
+    if prob_max >= 0.6:                     # Threshold to confirm a punch
+        idx = probs.index(prob_max)         # Get the index of the detected punch
+        return idx, punch_types[idx]        # Return the numeric ID and the name
+    return None, None                       # Return None if no punch is detected
+ 
 # --------------------------------------- Main Loop -----------------------------------------
+ 
+if WiFi_connection():                       # Start only if WiFi is available
 
-if connect_wifi():                                                          # checking if WiFi is connected properly
-    
-    client = setup_mqtt()                                                   # setting up connection between client and server
-    last_publish_time = time.time()                                         # defning time at which data has been published last
-    last_IMU_read_time = time.time()
-
-    if client:                                                              # checking if client has been started properly
-        
-        while True:															# create an infinit while loop
-            
+    client = setup_mqtt()                   # Initialize MQTT
+    last_publish_time = time.time()         # Initialize timer for publishing
+    last_imu_read_time = time.time()        # Initialize timer for sensor sampling
+ 
+ 
+    if client:                              # Ensure the client was created successfully
+        while True:                         # Start infinite processing loop
             try:
-                client.check_msg()											# checking if new Session ID´s have been sent
-                current_time = time.time()                                  # defining current time
-                
-                if current_time - last_IMU_read_time >= IMU_INTERVAL:
-                    punch_id, punch_name, all_probs = get_punch_data()      # call get_punch_data function every 0.02 seconds
-                                                                            # model was trained with at lealst 50Hz samples
-                    last_IMU_read_time = current_time
-                    
-                if (current_time - last_publish_time >= PUBLISH_INTERVAL)and not(punch_id == None):
+                client.check_msg()          # Check for incoming MQTT messages
+                current_time = time.time()  # Get current system time
+                # HIGH FREQUENCY SAMPLING
+                if current_time - last_imu_read_time >= IMU_INTERVAL:
+                    punch_id, punch_name = get_punch_data()         # Run punch detection
+                    if p_id == not None:                    # If a punch was confirmed
+                        punch_buffer.append({"id": punch_id, "name": punch_name}) # Store in list
 
-                    session_name = f"Training {current_session_id}"         # defining the session name
-                    
-
-                    # Define the data structure (JSON) to send to Ubidots
-                    payload = {
-                        "punchtype": {
-                            "value": punch_id,                              # publish numeric punch ID (1-3) for Ubidots calculation
-                            "context": {"punchtype_ctxt": punch_name}       # publish metadata (actual name of the punch)
-                        },
-                        "session": {
-                            "value": current_session_id,                    # publish numeric session ID (1-3)
-                            "context": {"session_ctxt": session_name}       # publish actual name of the session
+                    last_imu_read_time = current_time       # Reset IMU timer
+                # LOW FREQUENCY PUBLISHING
+                if current_time - last_publish_time >= PUBLISH_INTERVAL:
+                    if len(punch_buffer) > 0:               # Only publish if punches occurred
+                        last_punch = punch_buffer[-1]       # Get the most recent punch
+                        session_name = f"Training {current_session_id}"
+                        # Build the JSON payload for Ubidots
+                        payload = {
+                            "punchtype":
+                            {
+                                "value": last_punch["id"],            				# publish numeric punch ID (1-3) for Ubidots calculation
+                                "context": {"punchtype_ctxt": last_punch["name"]}	# publish metadata (actual name of the punch)
+                            },
+                            "session":
+                            {
+                                "value": current_session_id,                    # publish numeric session ID (1-3)
+                                "context": {"session_ctxt": session_name}       # publish actual name of the session
+                            }
                         }
-                    }                    
-                    
-                    client.publish(TOPIC_PUBLISH, ujson.dumps(payload))     # Convert the dictionary to a JSON string and publish it to the Ubidots topic
-                    print(f"Sent: {punch_name} (Session: {current_session_id})")
-                    
-                    last_publish_time = current_time                        # update last publish time with current time
 
+                        # Convert dict to JSON string and send to broker
+                        client.publish(TOPIC_PUBLISH, ujson.dumps(payload))
+                        print(f"Sent: {last_punch['name']} ({len(punch_buffer)} hits in buffer)")
+                        punch_buffer = []                   # Clear the buffer after successful send
+                    last_publish_time = current_time        # Reset publish timer
+ 
                 time.sleep(0.001)
-
-            except Exception as e:                                          # error handler for connection drops or a sensor fails
-                
-                print("Loop Error, reconnecting...", e)
-                time.sleep(5)                                               # adding delay to avoid spamming
-                client = setup_mqtt()						                # Trying restore connection with client
+ 
+            except Exception as e:          # Global error handling for connection issues
+                print("Loop error, attempting reconnect...", e)
+                time.sleep(5)               # Wait before retrying
+                client = setup_mqtt()       # Re-initialize MQTT connection
