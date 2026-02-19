@@ -1,17 +1,19 @@
-iimport time									# module to implement delays
+import time									# module to implement delays
 import network								# module for networking tasks
 import ujson                                # Module to generate and parse JSON strings
 from machine import Pin, I2C                # Machine module for GPIO and I2C hardware control
 from umqtt.robust import MQTTClient         # Robust MQTT client for reliable IoT communication
 from micropython_bmi270 import bmi270       # Driver for the BMI270 IMU sensor
+import deepcraft_model as m
+import array
  
  
  
 # --------------------------------------- Configuration -------------------------------------
  
 # WIFI setup
-SSID = "Magenta4675299"                                   # WiFi network name
-PASSWORD = "e3gp9e76p22j"                    # WiFi password
+SSID = "A1-E6303791"                                    # WiFi network name
+PASSWORD = "uTv9yRngHF1N2V"                   			# WiFi password
  
 # MQTT setup
 UBIDOTS_SERVER = "industrial.api.ubidots.com"               # Ubidots IoT server address
@@ -20,10 +22,10 @@ UBIDOTS_TOKEN = "BBUS-oCJ5n25UsXMlFIJjfcyEeQyefjg0Oi"       # Your unique Ubidot
 MQTT_CLIENT_ID = "boxtrainer"                               # Unique name for this MQTT client
 TOPIC_PUBLISH = b"/v1.6/devices/psoc6-boxer"                # Topic path for sending punch data
 TOPIC_SUBSCRIBE = b"/v1.6/devices/psoc6-boxer/session"      # Topic path for receiving session updates
- 
+
 # Timing constants
 PUBLISH_INTERVAL = 1.5                      # Delay between data transmissions (seconds)
-IMU_INTERVAL = 0.02                         # Delay between sensor readings ($50Hz$ sampling)
+IMU_INTERVAL = 0.0025                       # Delay between sensor readings ($50Hz$ sampling)
  
 # Global tracking variables
 current_session_id = 0                      # Stores the ID of the current training session
@@ -91,17 +93,32 @@ except Exception as e:
 # function to get punch data with the model implemented in deepcraft
  
 def get_punch_data():                       # Function to analyze sensor data
-    acc = bmi.acceleration                  # Read acceleration data (x, y, z)
-    gyro = bmi.gyro                         # Read angular velocity data
+    acc_x, acc_y, acc_z = bmi.acceleration                  # Read acceleration data (x, y, z)
+    gyro_x, gyro_y, gyro_z = bmi.gyro                         # Read angular velocity data
     # Placeholder logic: Replace this with your actual DeepCraft model inference
-    probs = [0.8, 0.1, 0.1]                 # Simulated probabilities: [Jab, Hook, Uppercut]
-    punch_types = ["Jab", "Hook", "Uppercut"]
-    prob_max = max(probs)                   # Find the highest confidence score
-    if prob_max >= 0.6:                     # Threshold to confirm a punch
-        idx = probs.index(prob_max)         # Get the index of the detected punch
-        return idx, punch_types[idx]        # Return the numeric ID and the name
-    return None, None                       # Return None if no punch is detected
- 
+    
+    print("acc_x:", acc_x, "acc_y", acc_y, "acc_z", acc_z)
+    
+    sample = [acc_x, acc_y, acc_z, gyro_x, gyro_y, gyro_z]
+    model.enqueue(sample)
+    
+    out_dim = model.get_model_output_dim()
+    probs = array.array('f', [0.0] * out_dim)
+    
+    result = model.dequeue(probs)
+    punch_types = ["Unlabled", "Jab", "Side Hook", "Uppercut"]
+
+    prob_max = max(probs)				# Find the highest confidence score
+        
+    if prob_max >= 0.6:					# Threshold to confirm a punch
+        idx = probs.index(prob_max)		# Get the index of the detected punch
+        if idx == 0:
+            return None, None
+        else:
+            return idx, punch_types[idx]	# Return the numeric ID and the name
+
+    return None, None						# Return None if no punch is detected
+
 # --------------------------------------- Main Loop -----------------------------------------
  
 if WiFi_connection():                       # Start only if WiFi is available
@@ -109,18 +126,23 @@ if WiFi_connection():                       # Start only if WiFi is available
     client = setup_mqtt()                   # Initialize MQTT
     last_publish_time = time.time()         # Initialize timer for publishing
     last_imu_read_time = time.time()        # Initialize timer for sensor sampling
- 
+    
+    model = m.DEEPCRAFT()
+    model.init()
  
     if client:                              # Ensure the client was created successfully
         while True:                         # Start infinite processing loop
             try:
                 client.check_msg()          # Check for incoming MQTT messages
                 current_time = time.time()  # Get current system time
+                
                 # HIGH FREQUENCY SAMPLING
                 if current_time - last_imu_read_time >= IMU_INTERVAL:
                     punch_id, punch_name = get_punch_data()         # Run punch detection
-                    if p_id == not None:                    # If a punch was confirmed
+                    print("Punch ID:", punch_id, "Punch name:", punch_name)
+                    if punch_id is not None:                    	# If a punch was confirmed
                         punch_buffer.append({"id": punch_id, "name": punch_name}) # Store in list
+
 
                     last_imu_read_time = current_time       # Reset IMU timer
                 # LOW FREQUENCY PUBLISHING
