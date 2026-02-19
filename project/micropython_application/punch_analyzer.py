@@ -12,13 +12,13 @@ import array
 # --------------------------------------- Configuration -------------------------------------
  
 # WIFI setup
-SSID = "A1-E6303791"                                    # WiFi network name
-PASSWORD = "uTv9yRngHF1N2V"                   			# WiFi password
+SSID = ""                                    # WiFi network name
+PASSWORD = ""                   			# WiFi password
  
 # MQTT setup
 UBIDOTS_SERVER = "industrial.api.ubidots.com"               # Ubidots IoT server address
 UBIDOTS_PORT = 1883                                         # Standard MQTT port
-UBIDOTS_TOKEN = "BBUS-oCJ5n25UsXMlFIJjfcyEeQyefjg0Oi"       # Your unique Ubidots authentication token
+UBIDOTS_TOKEN = ""       # Your unique Ubidots authentication token
 MQTT_CLIENT_ID = "boxtrainer"                               # Unique name for this MQTT client
 TOPIC_PUBLISH = b"/v1.6/devices/psoc6-boxer"                # Topic path for sending punch data
 TOPIC_SUBSCRIBE = b"/v1.6/devices/psoc6-boxer/session"      # Topic path for receiving session updates
