@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ImagimobStudio version="0.9">
+  <Timeline id="011f785b-e32c-4216-ba70-6931892895ed">
+    <Tracks>
+      <Track name="imu_100hz" type="datacsv" isLabelTrack="False">
+        <PayloadFile>imu_100hz.data</PayloadFile>
+      </Track>
+      <Track name="Live Labeling" type="labelcsv">
+        <PayloadFile>Live-Labeling.label</PayloadFile>
+        <Shape />
+      </Track>
+    </Tracks>
+  </Timeline>
+</ImagimobStudio>

@@ -3,10 +3,10 @@
   <Job id="5ae13c66-0ce7-11f1-9278-75d390008463" />
   <ProjectType>Classification</ProjectType>
   <ProjectId>e1da671c-293c-46c4-932a-c74dd68cbdef</ProjectId>
-  <Preprocessor inshape="[2,3]" intype="Float32" infreq="400" outshape="[200,6]" outtype="Float32">
+  <Preprocessor inshape="[2,3]" intype="Float32" infreq="400" outshape="[400,6]" outtype="Float32">
     <Unit id="Core.Packages.ContextualWindow">
-      <Argument param="contextual_length_sec" type="Double">0.5</Argument>
-      <Argument param="prediction_freq" type="Double">7</Argument>
+      <Argument param="contextual_length_sec" type="Double">1</Argument>
+      <Argument param="prediction_freq" type="Double">2</Argument>
       <Argument param="input" type="String">data</Argument>
       <Argument param="time_input" type="String">time</Argument>
       <Argument param="output" type="String">data</Argument>
@@ -55,7 +55,7 @@
         <LearningRate>0.004</LearningRate>
         <WeightDecay>0.0001</WeightDecay>
       </Optimizer>
-      <Network inshape="[200,6]" intype="Float32" infreq="0" outshape="[4]" outtype="Float32">
+      <Network inshape="[400,6]" intype="Float32" infreq="0" outshape="[4]" outtype="Float32">
         <Unit id="Core.Layers.Convolution1D">
           <Argument param="filters" type="Int32">12</Argument>
           <Argument param="kernel_size" type="Int32">3</Argument>
@@ -147,10 +147,10 @@
         <SymbolWeight symbol="Sidehook_R" weight="1" />
         <SymbolWeight symbol="Uppercut_R" weight="1" />
       </SymbolWeights>
-      <Preprocessor override="False" inshape="[2,3]" intype="Float32" infreq="400" outshape="[200,6]" outtype="Float32">
+      <Preprocessor override="False" inshape="[2,3]" intype="Float32" infreq="400" outshape="[400,6]" outtype="Float32">
         <Unit id="Core.Packages.ContextualWindow">
-          <Argument param="contextual_length_sec" type="Double">0.5</Argument>
-          <Argument param="prediction_freq" type="Double">7</Argument>
+          <Argument param="contextual_length_sec" type="Double">1</Argument>
+          <Argument param="prediction_freq" type="Double">2</Argument>
           <Argument param="input" type="String">data</Argument>
           <Argument param="time_input" type="String">time</Argument>
           <Argument param="output" type="String">data</Argument>
@@ -171,7 +171,7 @@
         <LearningRate>0.004</LearningRate>
         <WeightDecay>0.0001</WeightDecay>
       </Optimizer>
-      <Network inshape="[200,6]" intype="Float32" infreq="0" outshape="[4]" outtype="Float32">
+      <Network inshape="[400,6]" intype="Float32" infreq="0" outshape="[4]" outtype="Float32">
         <Unit id="Core.Layers.Convolution1D">
           <Argument param="filters" type="Int32">16</Argument>
           <Argument param="kernel_size" type="Int32">3</Argument>
@@ -263,10 +263,10 @@
         <SymbolWeight symbol="Sidehook_R" weight="1" />
         <SymbolWeight symbol="Uppercut_R" weight="1" />
       </SymbolWeights>
-      <Preprocessor override="False" inshape="[2,3]" intype="Float32" infreq="400" outshape="[200,6]" outtype="Float32">
+      <Preprocessor override="False" inshape="[2,3]" intype="Float32" infreq="400" outshape="[400,6]" outtype="Float32">
         <Unit id="Core.Packages.ContextualWindow">
-          <Argument param="contextual_length_sec" type="Double">0.5</Argument>
-          <Argument param="prediction_freq" type="Double">7</Argument>
+          <Argument param="contextual_length_sec" type="Double">1</Argument>
+          <Argument param="prediction_freq" type="Double">2</Argument>
           <Argument param="input" type="String">data</Argument>
           <Argument param="time_input" type="String">time</Argument>
           <Argument param="output" type="String">data</Argument>
@@ -287,7 +287,7 @@
         <LearningRate>0.004</LearningRate>
         <WeightDecay>0.0001</WeightDecay>
       </Optimizer>
-      <Network inshape="[200,6]" intype="Float32" infreq="0" outshape="[4]" outtype="Float32">
+      <Network inshape="[400,6]" intype="Float32" infreq="0" outshape="[4]" outtype="Float32">
         <Unit id="Core.Layers.Convolution1D">
           <Argument param="filters" type="Int32">16</Argument>
           <Argument param="kernel_size" type="Int32">3</Argument>
@@ -379,10 +379,10 @@
         <SymbolWeight symbol="Sidehook_R" weight="1" />
         <SymbolWeight symbol="Uppercut_R" weight="1" />
       </SymbolWeights>
-      <Preprocessor override="False" inshape="[2,3]" intype="Float32" infreq="400" outshape="[200,6]" outtype="Float32">
+      <Preprocessor override="False" inshape="[2,3]" intype="Float32" infreq="400" outshape="[400,6]" outtype="Float32">
         <Unit id="Core.Packages.ContextualWindow">
-          <Argument param="contextual_length_sec" type="Double">0.5</Argument>
-          <Argument param="prediction_freq" type="Double">7</Argument>
+          <Argument param="contextual_length_sec" type="Double">1</Argument>
+          <Argument param="prediction_freq" type="Double">2</Argument>
           <Argument param="input" type="String">data</Argument>
           <Argument param="time_input" type="String">time</Argument>
           <Argument param="output" type="String">data</Argument>
@@ -403,7 +403,7 @@
         <LearningRate>0.004</LearningRate>
         <WeightDecay>0.0001</WeightDecay>
       </Optimizer>
-      <Network inshape="[200,6]" intype="Float32" infreq="0" outshape="[4]" outtype="Float32">
+      <Network inshape="[400,6]" intype="Float32" infreq="0" outshape="[4]" outtype="Float32">
         <Unit id="Core.Layers.Convolution1D">
           <Argument param="filters" type="Int32">16</Argument>
           <Argument param="kernel_size" type="Int32">3</Argument>
@@ -495,10 +495,10 @@
         <SymbolWeight symbol="Sidehook_R" weight="1" />
         <SymbolWeight symbol="Uppercut_R" weight="1" />
       </SymbolWeights>
-      <Preprocessor override="False" inshape="[2,3]" intype="Float32" infreq="400" outshape="[200,6]" outtype="Float32">
+      <Preprocessor override="False" inshape="[2,3]" intype="Float32" infreq="400" outshape="[400,6]" outtype="Float32">
         <Unit id="Core.Packages.ContextualWindow">
-          <Argument param="contextual_length_sec" type="Double">0.5</Argument>
-          <Argument param="prediction_freq" type="Double">7</Argument>
+          <Argument param="contextual_length_sec" type="Double">1</Argument>
+          <Argument param="prediction_freq" type="Double">2</Argument>
           <Argument param="input" type="String">data</Argument>
           <Argument param="time_input" type="String">time</Argument>
           <Argument param="output" type="String">data</Argument>
