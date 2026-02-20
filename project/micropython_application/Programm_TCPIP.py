@@ -3,12 +3,14 @@ import network
 import socket
 from machine import I2C
 from micropython_bmi270 import bmi270
-import deepcraft_model as m
+import sys
 import array
+import deepcraft_model_05_2 as m
+
 
 # ---------------- config ----------------
-SSID = ""
-PASSWORD = ""
+SSID = "DTR"
+PASSWORD = "Rapid2013"
 PORT = 5000
 
 IMU_INTERVAL = 10000
@@ -113,7 +115,7 @@ while True:
             client.write(msg.encode())
             
         # Kleiner Sleep, um die CPU nicht zu 100% auszulasten
-        time.sleep_ms(7) 
+        time.sleep_ms(7)
 
     except Exception as e:
         print("Fehler aufgetreten:", e)
