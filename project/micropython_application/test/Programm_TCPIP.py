@@ -9,8 +9,9 @@ import deepcraft_model_05_2 as m
 
 
 # ---------------- config ----------------
-SSID = "DTR"
-PASSWORD = "Rapid2013"
+SSID = "A1-E6303791"
+PASSWORD = "uTv9yRngHF1N2V"
+
 PORT = 5000
 
 IMU_INTERVAL = 10000
