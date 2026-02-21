@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ImagimobStudio version="1.1.0">
-  <Job id="857ada32-0e6b-11f1-acfd-63bb5623f471" />
+  <Job id="e0a3ec58-0e7b-11f1-86ec-ffea47b52c3d" />
   <ProjectType>Classification</ProjectType>
   <ProjectId>58991936-931c-41c1-b6bb-d39fa5cd0f54</ProjectId>
-  <Preprocessor inshape="[6]" intype="Float32" infreq="100" outshape="[50,6]" outtype="Float32">
+  <Preprocessor inshape="[6]" intype="Float32" infreq="100" outshape="[40,6]" outtype="Float32">
     <Unit id="Core.Packages.ContextualWindow">
-      <Argument param="contextual_length_sec" type="Double">0.5</Argument>
-      <Argument param="prediction_freq" type="Double">2</Argument>
+      <Argument param="contextual_length_sec" type="Double">0.4</Argument>
+      <Argument param="prediction_freq" type="Double">4</Argument>
       <Argument param="input" type="String">data</Argument>
       <Argument param="time_input" type="String">time</Argument>
       <Argument param="output" type="String">data</Argument>
@@ -31,7 +31,7 @@
     <Downscale>False</Downscale>
     <LearnRate>Mid</LearnRate>
     <RegularizationFactor>Mid</RegularizationFactor>
-    <LastNetworkInputShape>[50,6]</LastNetworkInputShape>
+    <LastNetworkInputShape>[40,6]</LastNetworkInputShape>
     <LastClassCount>4</LastClassCount>
     <Optimizer>
       <LearningRate>0.001</LearningRate>
@@ -43,7 +43,7 @@
     </BuildSteps>
   </ModelFactory>
   <Models>
-    <Model name="conv1d-medium-balanced-0" id="d59d3089-d920-49c8-bbdd-e2627f9878fe">
+    <Model name="conv1d-medium-balanced-0" id="b154e7fe-02ae-4fcf-9d5e-366da8753572">
       <LossFunction>CategoricalCrossentropy</LossFunction>
       <Epochs>100</Epochs>
       <BatchSize>16</BatchSize>
@@ -55,7 +55,7 @@
         <LearningRate>0.004</LearningRate>
         <WeightDecay>0.001</WeightDecay>
       </Optimizer>
-      <Network inshape="[50,6]" intype="Float32" infreq="0" outshape="[4]" outtype="Float32">
+      <Network inshape="[40,6]" intype="Float32" infreq="0" outshape="[4]" outtype="Float32">
         <Unit id="Core.Layers.Convolution1D">
           <Argument param="filters" type="Int32">12</Argument>
           <Argument param="kernel_size" type="Int32">3</Argument>
@@ -153,10 +153,10 @@
         <SymbolWeight symbol="Sidehook_R" weight="1" />
         <SymbolWeight symbol="Uppercut_R" weight="1" />
       </SymbolWeights>
-      <Preprocessor override="False" inshape="[6]" intype="Float32" infreq="100" outshape="[50,6]" outtype="Float32">
+      <Preprocessor override="False" inshape="[6]" intype="Float32" infreq="100" outshape="[40,6]" outtype="Float32">
         <Unit id="Core.Packages.ContextualWindow">
-          <Argument param="contextual_length_sec" type="Double">0.5</Argument>
-          <Argument param="prediction_freq" type="Double">2</Argument>
+          <Argument param="contextual_length_sec" type="Double">0.4</Argument>
+          <Argument param="prediction_freq" type="Double">4</Argument>
           <Argument param="input" type="String">data</Argument>
           <Argument param="time_input" type="String">time</Argument>
           <Argument param="output" type="String">data</Argument>
@@ -165,7 +165,7 @@
       </Preprocessor>
       <Postprocessor override="False" inshape="[128,3]" intype="Float32" infreq="1" outshape="[128,3]" outtype="Float32" />
     </Model>
-    <Model name="conv1d-medium-balanced-1" id="f5f23cb0-b739-482b-ac95-2d1f6e6c06f3">
+    <Model name="conv1d-medium-balanced-1" id="0c5bcca3-d3e0-443c-8313-49fba0314f27">
       <LossFunction>CategoricalCrossentropy</LossFunction>
       <Epochs>100</Epochs>
       <BatchSize>16</BatchSize>
@@ -177,7 +177,7 @@
         <LearningRate>0.004</LearningRate>
         <WeightDecay>0.001</WeightDecay>
       </Optimizer>
-      <Network inshape="[50,6]" intype="Float32" infreq="0" outshape="[4]" outtype="Float32">
+      <Network inshape="[40,6]" intype="Float32" infreq="0" outshape="[4]" outtype="Float32">
         <Unit id="Core.Layers.Convolution1D">
           <Argument param="filters" type="Int32">16</Argument>
           <Argument param="kernel_size" type="Int32">3</Argument>
@@ -275,10 +275,10 @@
         <SymbolWeight symbol="Sidehook_R" weight="1" />
         <SymbolWeight symbol="Uppercut_R" weight="1" />
       </SymbolWeights>
-      <Preprocessor override="False" inshape="[6]" intype="Float32" infreq="100" outshape="[50,6]" outtype="Float32">
+      <Preprocessor override="False" inshape="[6]" intype="Float32" infreq="100" outshape="[40,6]" outtype="Float32">
         <Unit id="Core.Packages.ContextualWindow">
-          <Argument param="contextual_length_sec" type="Double">0.5</Argument>
-          <Argument param="prediction_freq" type="Double">2</Argument>
+          <Argument param="contextual_length_sec" type="Double">0.4</Argument>
+          <Argument param="prediction_freq" type="Double">4</Argument>
           <Argument param="input" type="String">data</Argument>
           <Argument param="time_input" type="String">time</Argument>
           <Argument param="output" type="String">data</Argument>
@@ -287,7 +287,7 @@
       </Preprocessor>
       <Postprocessor override="False" inshape="[128,3]" intype="Float32" infreq="1" outshape="[128,3]" outtype="Float32" />
     </Model>
-    <Model name="conv1d-medium-balanced-2" id="525876cf-e276-4e78-8111-a82ccc8e6aba">
+    <Model name="conv1d-medium-balanced-2" id="05f9f03e-219c-4d1e-b4c1-40da49f02f3f">
       <LossFunction>CategoricalCrossentropy</LossFunction>
       <Epochs>100</Epochs>
       <BatchSize>16</BatchSize>
@@ -299,7 +299,7 @@
         <LearningRate>0.004</LearningRate>
         <WeightDecay>0.001</WeightDecay>
       </Optimizer>
-      <Network inshape="[50,6]" intype="Float32" infreq="0" outshape="[4]" outtype="Float32">
+      <Network inshape="[40,6]" intype="Float32" infreq="0" outshape="[4]" outtype="Float32">
         <Unit id="Core.Layers.Convolution1D">
           <Argument param="filters" type="Int32">16</Argument>
           <Argument param="kernel_size" type="Int32">3</Argument>
@@ -397,10 +397,10 @@
         <SymbolWeight symbol="Sidehook_R" weight="1" />
         <SymbolWeight symbol="Uppercut_R" weight="1" />
       </SymbolWeights>
-      <Preprocessor override="False" inshape="[6]" intype="Float32" infreq="100" outshape="[50,6]" outtype="Float32">
+      <Preprocessor override="False" inshape="[6]" intype="Float32" infreq="100" outshape="[40,6]" outtype="Float32">
         <Unit id="Core.Packages.ContextualWindow">
-          <Argument param="contextual_length_sec" type="Double">0.5</Argument>
-          <Argument param="prediction_freq" type="Double">2</Argument>
+          <Argument param="contextual_length_sec" type="Double">0.4</Argument>
+          <Argument param="prediction_freq" type="Double">4</Argument>
           <Argument param="input" type="String">data</Argument>
           <Argument param="time_input" type="String">time</Argument>
           <Argument param="output" type="String">data</Argument>
@@ -409,7 +409,7 @@
       </Preprocessor>
       <Postprocessor override="False" inshape="[128,3]" intype="Float32" infreq="1" outshape="[128,3]" outtype="Float32" />
     </Model>
-    <Model name="conv1d-medium-balanced-3" id="519b23d2-e195-437a-8460-42d185695850">
+    <Model name="conv1d-medium-balanced-3" id="4e6d14e8-8b5b-4d2a-9c5d-61760c282217">
       <LossFunction>CategoricalCrossentropy</LossFunction>
       <Epochs>100</Epochs>
       <BatchSize>16</BatchSize>
@@ -421,7 +421,7 @@
         <LearningRate>0.004</LearningRate>
         <WeightDecay>0.001</WeightDecay>
       </Optimizer>
-      <Network inshape="[50,6]" intype="Float32" infreq="0" outshape="[4]" outtype="Float32">
+      <Network inshape="[40,6]" intype="Float32" infreq="0" outshape="[4]" outtype="Float32">
         <Unit id="Core.Layers.Convolution1D">
           <Argument param="filters" type="Int32">16</Argument>
           <Argument param="kernel_size" type="Int32">3</Argument>
@@ -519,10 +519,10 @@
         <SymbolWeight symbol="Sidehook_R" weight="1" />
         <SymbolWeight symbol="Uppercut_R" weight="1" />
       </SymbolWeights>
-      <Preprocessor override="False" inshape="[6]" intype="Float32" infreq="100" outshape="[50,6]" outtype="Float32">
+      <Preprocessor override="False" inshape="[6]" intype="Float32" infreq="100" outshape="[40,6]" outtype="Float32">
         <Unit id="Core.Packages.ContextualWindow">
-          <Argument param="contextual_length_sec" type="Double">0.5</Argument>
-          <Argument param="prediction_freq" type="Double">2</Argument>
+          <Argument param="contextual_length_sec" type="Double">0.4</Argument>
+          <Argument param="prediction_freq" type="Double">4</Argument>
           <Argument param="input" type="String">data</Argument>
           <Argument param="time_input" type="String">time</Argument>
           <Argument param="output" type="String">data</Argument>
