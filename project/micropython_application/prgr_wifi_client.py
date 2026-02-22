@@ -5,7 +5,7 @@ import gc                                       # Import garbage collector for m
 from machine import I2C                         # Import I2C class for hardware communication
 from micropython_bmi270 import bmi270           # Import driver for the BMI270 IMU sensor
 import array                                    # Import array module for efficient numerical data storage
-import deepcraft_model_05_2 as m                # Import the specific AI model library
+import deepcraft_model_05_2 as m                # Import the specific trained model library
 
 
 
@@ -13,8 +13,8 @@ import deepcraft_model_05_2 as m                # Import the specific AI model l
 # Configuration
 # ============================================================
 
-SSID = "A1-E6303791"
-PASSWORD = "uTv9yRngHF1N2V"
+SSID = "USER_WIFI_SSID"
+PASSWORD = "USER_WIFI_PWD"
 PORT = 5000                                     # Set the network port for the server
 
 model = m.DEEPCRAFT()                           # Instantiate the AI model object
@@ -111,7 +111,7 @@ bmi = bmi270.BMI270(i2c)                        # Initialize the BMI270 sensor v
 client = None                                   # Initialize the client variable as empty
 last_imu_read = time.ticks_us()                 # Record the initial timestamp in microseconds
 
-print("System bereit. Warte auf Client an Port", PORT) # Notify that the system is ready
+print("System ready. Waiting for client on port", PORT) # Notify that the system is ready
 
 while True:                                     # Start the infinite main loop
     current_time = time.ticks_us()              # Get the current time in microseconds
@@ -119,7 +119,7 @@ while True:                                     # Start the infinite main loop
     if client is None:                          # Check if a client is currently connected
         try:                                    # Start block to attempt a connection
             new_client, addr = server.accept()  # Wait for and accept a new connection
-            print("Client verbunden:", addr)    # Print the address of the connected client
+            print("Client connected:", addr)    # Print the address of the connected client
             client = new_client                 # Store the client connection
             client.setblocking(True)            # Ensure the socket is in blocking mode for stable sends
         except OSError:                         # Catch error if no client is trying to connect
@@ -137,7 +137,7 @@ while True:                                     # Start the infinite main loop
             try:                                # Try to send the data
                 client.write(msg.encode())      # Convert string to bytes and send to client
             except OSError:                     # Catch error if the connection failed
-                print("Verbindung zum Client verloren.") # Notify connection loss
+                print("Connection to client lost") # Notify connection loss
                 client.close()                  # Close the broken client socket
                 client = None                   # Reset client variable to allow new connections
         

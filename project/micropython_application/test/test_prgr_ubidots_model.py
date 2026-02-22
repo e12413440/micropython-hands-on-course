@@ -17,8 +17,8 @@ import ujson
 # ============================================================
 
 # WiFi credentials
-SSID = "A1-E6303791"
-PASSWORD = "uTv9yRngHF1N2V"
+SSID = ""
+PASSWORD = ""
 
 
 # MQTT / Ubidots configuration
@@ -26,7 +26,7 @@ MQTT_SERVER = "industrial.api.ubidots.com"
 MQTT_PORT = 1883
 MQTT_CLIENT_ID = "boxtrainer_transmitter"
 MQTT_TOPIC = b"/v1.6/devices/PSOC6-Boxer"
-UBIDOTS_TOKEN = "BBUS-oCJ5n25UsXMlFIJjfcyEeQyefjg0Oi"
+UBIDOTS_TOKEN = ""
 
 # IMU read interval (microseconds)
 IMU_INTERVAL_US = 10000

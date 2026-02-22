@@ -9,8 +9,8 @@ import deepcraft_model_05_2 as m
 
 
 # ---------------- config ----------------
-SSID = "A1-E6303791"
-PASSWORD = "uTv9yRngHF1N2V"
+SSID = ""
+PASSWORD = ""
 
 PORT = 5000
 
